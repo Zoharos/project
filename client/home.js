@@ -49,20 +49,23 @@ class HomePage extends React.Component {
                     email2: this.state.registrationFields.regEmail2,
                     password1: this.state.registrationFields.regPassword1,
                     password2: this.state.registrationFields.regPassword2,
+                    //token: JSON.parse(localStorage.getItem('token'))
                 })
                 .then(function (response) {
-                console.log(response);
+                //console.log(response);
             }) 
         }
     }
     login() {
         axios.get('/api/login',{
-            params: {
+            headers: {
                 email: this.state.loginFields.email,
                 password: this.state.loginFields.password
             }
         }).then(function (response){
-            console.log(response);
+            console.log(response.data);
+            localStorage.setItem('token',JSON.stringify(response.data.token));
+            localStorage.setItem('email',JSON.stringify(response.data.email));
         }) 
     }
     enterHoverState()
